@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="initial-scale=1, maximum-scale=1">
+  <title></title>
+  <script type="text/javascript">
+    window.onload = () => {
+      const navigate = () => {
+        window.location.href = 'https://www.google.com';
+      }
+
+      let deltaY;
+      let y;
+
+      window.addEventListener('touchstart', event => {
+        y = event.touches[0].clientY;
+        deltaY = 0;
+      });
+
+      window.addEventListener('touchmove', event => {
+        deltaY = y - event.touches[0].clientY;
+      });
+
+      window.addEventListener('touchend', event => {
+        // If swipe up.
+        if (deltaY > 100) {
+          navigate();
+        }
+      });
+
+      const buttonEl = document.querySelector('button');
+      buttonEl.addEventListener('click', event => {
+        navigate();
+      });
+    };
+  </script>
+</head>
+<body>
+Swipe up to navigate: may trigger the bug.
+<br/>
+<button>Navigate on click: will never trigger the bug</button>
+</body>
+</html>
